@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skystore</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top btn-primary">
+    <a class="navbar-brand" href="#">Панель навигации</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/contacts/">Контакты <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <br></br>
+    <h1 class="display-4">Контакты</h1>
+</div>
+
+<div class="container">
+    <div class="row text-start">
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="w-25">Страна</td>
+                            <td>USA</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">ИНН</td>
+                            <td>91-1144442</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Адрес</td>
+                            <td>Redmond,WA,98052-6399</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Свяжитесь с нами</h4>
+                </div>
+                <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input name="name" class="form-control mb-2" placeholder="Имя" type="text">
+                            <input name="email" class="form-control mb-2" placeholder="Email" type="email">
+                            <textarea name="message" class="form-control mb-2" placeholder="Сообщение"></textarea>
+                            <input class="btn btn-primary w-100" type="submit" value="Отправить" />
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                SkyStore
+                <small class="d-block mb-3 text-muted">&copy; 2023</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Категории</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Рассылки</a></li>
+                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                    <li><a class="text-muted" href="#">Микросервисы</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Дополнительно</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Мы пишем</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>О нас</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="/static/bootstrap.bundle.min.js"></script>
+</body>
+</html>
