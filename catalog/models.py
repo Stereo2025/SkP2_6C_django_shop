@@ -18,6 +18,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+        app_label = 'catalog'
 
 
 class Category(models.Model):
@@ -31,3 +32,4 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+        app_label = 'catalog'
