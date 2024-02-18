@@ -1,53 +1,47 @@
 from django.core.management.base import BaseCommand
 from catalog.models import Category, Product
 import json
+from django.db import transaction
 
 
 class Command(BaseCommand):
 
-    @staticmethod
-    def json_read_categories(file_path):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            return data['categories']
+    def import_categories(self, entries):
+        for entry in entries:
+            if entry['model'] == 'catalog.category':
+                Category.objects.create(
+                    id=entry['pk'],
+                    **entry['fields']
+                )
 
-    @staticmethod
-    def json_read_products(file_path):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            return data['products']
+    def import_products(self, entries):
+        for entry in entries:
+            if entry['model'] == 'catalog.product':
+                product_data = entry['fields']
+                # Предполагаем, что категории уже импортированы и существуют.
+                product_data['category'] = Category.objects.get(pk=product_data['category'])
+                Product.objects.create(
+                    id=entry['pk'],
+                    **product_data
+                )
 
     def handle(self, *args, **options):
-        # Удалите все продукты
+        file_path = 'fixtures/catalog_data.json'
+
+        self.stdout.write("Deleting existing data...")
         Product.objects.all().delete()
-        # Удалите все категории
         Category.objects.all().delete()
 
-        # Создайте список для хранения объектов категорий
-        category_for_create = []
+        try:
+            with open(file_path, 'r', encoding='utf-16') as file:
+                products_and_categories = json.load(file)
 
-        # Создание категорий
-        for category_data in Command.json_read_categories('fixtures/catalog_data.json'):
-            category_for_create.append(
-                Category(name=category_data['name'])
-            )
+            with transaction.atomic():
+                # Сначала импортируем категории
+                self.import_categories(products_and_categories)
+                # Затем импортируем продукты
+                self.import_products(products_and_categories)
 
-        # Создание объектов Category в базе данных
-        Category.objects.bulk_create(category_for_create)
-
-        # Создание объектов продуктов
-        product_for_create = []
-
-        # Создание продуктов
-        for product_data in Command.json_read_products('fixtures/catalog_data.json'):
-            product_for_create.append(
-                Product(
-                    name=product_data['name'],
-                    description=product_data['description'],
-                    price=product_data['price'],
-                    category=Category.objects.get(name=product_data['category'])
-                )
-            )
-
-        # Создание объектов Product в базе данных
-        Product.objects.bulk_create(product_for_create)
+            self.stdout.write(self.style.SUCCESS('Successfully imported data from JSON.'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f"Error importing data: {e}"))
