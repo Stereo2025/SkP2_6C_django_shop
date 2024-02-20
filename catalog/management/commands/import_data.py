@@ -32,14 +32,14 @@ class Command(BaseCommand):
                 )
     # Создаем объект продукта с помощью извлеченных данных
     def handle(self, *args, **options):
-        file_path = 'fixtures/catalog_data.json'
+        file_path = 'fixtures/catalogdata.json'
         # Удаляем все существующие записи из таблиц продуктов и категорий перед импортом новых данных.
         self.stdout.write("Deleting existing data...")
         Product.objects.all().delete()
         Category.objects.all().delete()
 
         try:
-            with open(file_path, 'r', encoding='utf-16') as file:
+            with open(file_path, 'r', encoding='utf-8') as file:
                 products_and_categories = json.load(file)
             # Начинаем атомарную транзакцию для обеспечения атомарности операции импорта данных.
             with transaction.atomic():
