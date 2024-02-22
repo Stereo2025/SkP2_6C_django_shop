@@ -1,16 +1,14 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from catalog.models import Product, Contact, Category
 
 
 def home_page(request):
     """Контроллер домашней страницы"""
-    products = Product.objects.all()
-    last_products = []
-    for item in reversed(products):
-        last_products.append(item)
+    products = Product.objects.all().order_by('id')
+
     context = {
-        'product_list': last_products[:5],
+        'product_list': products,
     }
 
     return render(request, 'catalog/home_page.html', context=context)
@@ -60,7 +58,7 @@ def user_product(request):
 
 
 def view_product(request, pk):
-    product = Product.objects.get(pk=pk)
+    product = get_object_or_404(Product, pk=pk)
     context = {
         'product': product
     }
