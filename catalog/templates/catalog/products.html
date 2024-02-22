@@ -1,0 +1,30 @@
+{%extends 'catalog/base.html' %}
+{% load tags %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <br></br>
+    <h2 class="display-4">Все товары</h2>
+</div>
+{% include 'catalog/includes/inc_products.html' %}
+<nav class="w-25 mx-auto" aria-label="Page navigation example">
+  <ul class="pagination" style="padding-left: 21%; padding-right: 21%">
+    <li class="page-item">
+      {% if product_list.has_previous %}
+      <a class="page-link" href="" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      {% endif %}
+    </li>
+    {% for p in product_list.paginator.page_range %}
+    <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+    {% endfor %}
+    <li class="page-item">
+      {% if product_list.has_next %}
+      <a class="page-link" href="?page={{product_list.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
+{% endblock %}
