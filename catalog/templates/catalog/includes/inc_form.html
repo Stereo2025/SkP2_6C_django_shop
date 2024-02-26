@@ -1,0 +1,19 @@
+<main>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-7 col-lg-8">
+              <form enctype="multipart/form-data" class="needs-validation" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">
+                    {% if object %}
+                        Сохранить
+                    {% else %}
+                        Создать
+                    {% endif %}
+                </button>
+              </form>
+            </div>
+        </div>
+    </div>
+</main>

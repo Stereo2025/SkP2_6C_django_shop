@@ -3,7 +3,7 @@
     <div class="container">
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for product in product_list %}
+            {% for product in object_list %}
             <div class="col-4">
                 <br></br>
                 <div class="card border-primary">
@@ -14,7 +14,7 @@
                     <img src="{% mediapath product.image %}" width="100" height="380" class="card-img-top" alt="{{product.name}}">
                     </a>
                     <div class="card-body">
-                        <p class="card-text">{{product.description|slice:":100"}}</p>
+                        <p class="card-text">{{product.description|slice:100}}</p>
                         <div class="card-footer">
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                                 <div class="col">

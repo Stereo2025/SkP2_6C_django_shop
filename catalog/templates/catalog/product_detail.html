@@ -3,7 +3,7 @@
 {% load tags %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <br></br>
-    <h2 class="display-4">{{product.name}}</h2>
+    <h2 class="display-4">{{object.name}}</h2>
 </div>
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
@@ -12,15 +12,12 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{product.name}}</h5>
-        <p class="card-text">{{product.description}}</p>
-        <p class="card-text"><small class="text-muted">Категория: {{ product.category.name }}</small></p>
-        <p class="card-text">Дата создания: {{ product.created_at|date:"d M Y" }}</p>
-        <p class="card-text">Дата последнего обновления: {{ product.updated_at|date:"d M Y" }}</p>
+        <h5 class="card-title">{{object.name}}</h5>
+        <p class="card-text">{{object.description}}</p>
         <div class="card-footer">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col">
-                 <h4 class="card-title pricing-card-title">{{product.price}} р.</h4>
+                 <h4 class="card-title pricing-card-title">{{object.price}} р.</h4>
               </div>
           </div>
         </div>

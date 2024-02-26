@@ -1,65 +1,117 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
-from catalog.models import Product, Contact, Category
+from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
+from catalog.models import Product, Contact, Blog
+from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
+from pytils.translit import slugify
+from django.core.mail import send_mail
+
+from config.settings import EMAIL_HOST_USER
 
 
-def home_page(request):
+class HomeListView(ListView):
     """Контроллер домашней страницы"""
-    products = Product.objects.all().order_by('id')
+    model = Product
 
-    context = {
-        'product_list': products,
-    }
+    template_name = 'catalog/home_page.html'
 
-    return render(request, 'catalog/home_page.html', context=context)
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.all()
+        queryset = list(reversed(queryset))
+
+        return queryset
 
 
-def contacts(request):
+class ContactTemplateView(TemplateView):
     """Контроллер страницы контактов"""
-    contacts = Contact.objects.all()
-    data = {
-        'contact_list': contacts,
+    contacts_list = Contact.objects.all()
+    extra_context = {
+        'contact_list': contacts_list,
     }
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
-        print(f'You have a message from {name}({phone}): {message}')
-    return render(request, 'catalog/contact.html', context=data)
+    template_name = 'catalog/contact.html'
+
+    def post(self, request):
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            message = request.POST.get('message')
+            print(f'You have a message from {name}({email}): {message}')
+        return render(request, 'catalog/contact.html', context=self.extra_context)
 
 
-def products(request):
+class ProductListView(ListView):
     """Контроллер страницы товаров"""
-    products_list = Product.objects.all()
-    paginator = Paginator(products_list, 6)
-    page = request.GET.get('page')
-    page_obj = paginator.get_page(page)
-    context = {
-        'product_list': page_obj,
-    }
-    return render(request, 'catalog/products.html', context=context)
+    model = Product
+    paginate_by = 6
 
 
-def user_product(request):
+class ProductCreateView(CreateView):
     """Контроллер страницы добавления товара от пользователя"""
-    category_list = Category.objects.all()
-    context = {
-        'category_list': category_list,
-    }
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        description = request.POST.get('description')
-        image = request.FILES.get('image')
-        price = request.POST.get('price')
-        category = Category.objects.get(name=request.POST.get('category'))
-        print(f'1 - {name}, 2 - {description}, 3 - {image}, 4 - {price}, 5 - {category}')
-        Product.objects.create(name=name, description=description, image=image, price=price, category=category)
-    return render(request, 'catalog/user_product.html', context=context)
+    model = Product
+    fields = ('name', 'description', 'image', 'category', 'price')
+    success_url = reverse_lazy('catalog:products')
 
 
-def view_product(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {
-        'product': product
-    }
-    return render(request, 'catalog/view_product.html', context=context)
+class ProductDetailView(DetailView):
+    """Контроллер страницы товара по id"""
+    model = Product
+
+
+class ArticleListView(ListView):
+    model = Blog
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
+
+class ArticleDetailView(DetailView):
+    model = Blog
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_count += 1
+        if self.object.views_count == 12:
+            send_mail(
+                'Test Subject',
+                'Test message body',
+                EMAIL_HOST_USER,
+                ['dezhiter@mail.ru'],
+                fail_silently=False,
+            )
+        self.object.save()
+        return self.object
+
+
+class ArticleCreateView(CreateView):
+    model = Blog
+    fields = ('title', 'content', 'image', 'is_published')
+    success_url = reverse_lazy('catalog:articles')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_article = form.save()
+            new_article.slug = slugify(new_article.title)
+            new_article.save()
+        return super().form_valid(form)
+
+
+class ArticleUpdateView(UpdateView):
+    model = Blog
+    fields = ('title', 'content', 'image', 'is_published',)
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_article = form.save()
+            new_article.slug = slugify(new_article.title)
+            new_article.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('catalog:view', args=[self.object.slug])
+
+
+class ArticleDeleteView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('catalog:articles')
