@@ -102,10 +102,9 @@ class ArticleUpdateView(UpdateView):
     fields = ('title', 'content', 'image', 'is_published',)
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_article = form.save()
-            new_article.slug = slugify(new_article.title)
-            new_article.save()
+        new_article = form.save()
+        new_article.slug = slugify(new_article.title)
+        new_article.save()
         return super().form_valid(form)
 
     def get_success_url(self):
