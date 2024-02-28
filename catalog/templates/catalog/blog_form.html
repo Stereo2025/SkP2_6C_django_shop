@@ -1,0 +1,14 @@
+{%extends 'catalog/base.html' %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <br></br>
+    <h2 class="display-4">
+        {% if object %}
+            Редактировать
+        {% else %}
+            Добавить статью
+        {% endif %}
+    </h2>
+</div>
+{% include 'catalog/includes/inc_form.html' %}
+{% endblock %}

@@ -5,22 +5,25 @@
     <br></br>
     <h2 class="display-4">Все товары</h2>
 </div>
+<div style="margin-left: 40px" class="col-12 mb-5">
+  <a class="btn btn-outline-primary" href="{% url 'catalog:user_product' %}">Добавить товар</a>
+</div>
 {% include 'catalog/includes/inc_products.html' %}
 <nav class="w-25 mx-auto" aria-label="Page navigation example">
   <ul class="pagination" style="padding-left: 21%; padding-right: 21%">
     <li class="page-item">
-      {% if product_list.has_previous %}
-      <a class="page-link" href="" aria-label="Previous">
+      {% if page_obj.has_previous %}
+      <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
       {% endif %}
     </li>
-    {% for p in product_list.paginator.page_range %}
+    {% for p in paginator.page_range %}
     <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
     {% endfor %}
     <li class="page-item">
-      {% if product_list.has_next %}
-      <a class="page-link" href="?page={{product_list.next_page_number}}" aria-label="Next">
+      {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
       {% endif %}

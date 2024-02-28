@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-dark fixed-top btn-primary">
-    <a class="navbar-brand" href="#">Панель навигации</a>
+    <a class="navbar-brand" href="#">SkyStore</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@
                 <a class="nav-link active" href="{% url 'catalog:products' %}">Все товары<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'catalog:user_product' %}">Добавить товар<span class="sr-only">(current)</span></a>
+                <a class="nav-link active" href="{% url 'catalog:articles' %}">Добавить товар<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{% url 'catalog:contacts' %}">Контакты <span class="sr-only">(current)</span></a>
