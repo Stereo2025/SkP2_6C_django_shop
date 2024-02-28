@@ -27,20 +27,15 @@
                             Читать далее
                         </a>
                     </div>
-                    <!--                <div class="col-6">-->
-                    <!--                    <div class="btn-group">-->
-                    <!--                        <a class="btn btn-outline-primary" href="{% url 'catalog:update' item.slug %}">Редактировать</a>-->
-                    <!--                        <form action="{% url 'catalog:delete' item.slug %}" method="post" style="display:inline;">-->
-                    <!--                            {% csrf_token %}-->
-                    <!--                            <button type="submit" class="btn btn-outline-danger">Удалить</button>-->
-                    <!--                        </form>-->
-                    <!--                    </div>-->
-                    <!--                </div>-->
                     <div class="col-6">
-                        <a href="{% url 'catalog:update' item.slug %}">Редактировать</a>
-                        <form action="{% url 'catalog:delete' item.slug %}" method="post">
-                            <button type="submit">Удалить</button>
-                        </form>
+                        <div class="btn-group">
+                            <a class="btn btn-outline-primary"
+                               href="{% url 'catalog:update' item.slug %}">Редактировать</a>
+                            <form action="{% url 'catalog:delete' item.slug %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
