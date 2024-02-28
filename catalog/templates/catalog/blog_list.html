@@ -22,21 +22,21 @@
                 <p class="card-text mb-auto">{{ item.content|slice:"100" }}...</p>
                 <div class="row">
                     <div class="col-6">
-                        <a href="{% url 'catalog:view' item.slug %}"
-                           class="icon-link gap-1 icon-link-hover stretched-link">
-                            Читать далее
-                        </a>
-                    </div>
-                    <div class="col-6">
                         <div class="btn-group">
-                            <a class="btn btn-outline-primary"
-                               href="{% url 'catalog:update' item.slug %}">Редактировать</a>
-                            <form action="{% url 'catalog:delete' item.slug %}" method="post" style="display:inline;">
+                            <a href="{% url 'catalog:view' item.slug %}" class="btn btn-outline-black">Читать
+                                далее</a>
+                            <span style="display: inline-block; width: 50px;"></span>
+                            <form action="{% url 'catalog:delete' item.slug %}" method="post" style="display: inline;">
                                 {% csrf_token %}
+                                <button type="button" class="btn btn-outline-primary"
+                                        onclick="location.href='{% url 'catalog:update' item.slug %}'">Редактировать
+                                </button>
+                                <span style="display: inline-block; width: 2px;"></span>
                                 <button type="submit" class="btn btn-outline-danger">Удалить</button>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
