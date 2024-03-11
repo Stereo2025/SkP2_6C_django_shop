@@ -8,7 +8,12 @@
                 <br></br>
                 <div class="card border-primary">
                     <div class="card-header text-center">
-                        <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
+                        <h4 class="my-0 font-weight-normal mb-2">{{product.name}}</h4>
+                        {% for version in product.version_set.all %}
+                        {% if version.is_active %}
+                        <p>Версия: {{version.name}} {{version.number}}</p>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                     <a href="{% url 'catalog:view_product' product.id %}">
                     <img src="{% mediapath product.image %}" width="100" height="380" class="card-img-top" alt="{{product.name}}">
@@ -19,8 +24,9 @@
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                                 <div class="col">
                                     <h4 class="card-title pricing-card-title">{{product.price}} р.</h4>
-                                    <button type="button" class="btn btn-sm btn-primary">Купить</button>
-                                    <button type="button" class="btn btn-sm btn-primary">В избранное</button>
+                                    <button type="button" class="btn mb-3 btn-sm btn-primary">Купить</button>
+                                    <button type="button" class="btn mb-3 btn-sm btn-primary">В избранное</button>
+                                    <a type="button" class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
                                 </div>
                             </div>
                         </div>

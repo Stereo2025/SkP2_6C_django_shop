@@ -1,6 +1,8 @@
 from django.db import models
 import psycopg2
 from django.db import connection
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -107,3 +109,36 @@ class Blog(models.Model):
         """Класс отображения метаданных"""
         verbose_name = 'Публикация'
         verbose_name_plural = 'Публикации'
+
+
+class Version(models.Model):
+    """Модель таблицы - версия"""
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='Продукт')
+    name = models.CharField(max_length=150, verbose_name='Название версии')
+    number = models.FloatField(verbose_name='Номер версии')
+
+    is_active = models.BooleanField(default=False, verbose_name='Активна')
+
+    @classmethod
+    def truncate_table_restart_id(cls):
+        """Метод для обнуления счетчика автоинкремента"""
+
+        with connection.cursor() as cur:
+            try:
+                cur.execute(f'TRUNCATE TABLE {cls._meta.db_table} RESTART IDENTITY CASCADE')
+            except psycopg2.errors.Error as e:
+                raise e
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        """Класс отображения метаданных"""
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+
+
+@receiver(post_save, sender=Version)
+def set_active_version(sender, instance, **kwargs):
+    if 'is_active' in kwargs.get('update_fields', []) and instance.is_active:
+        Version.objects.filter(product=instance.product).exclude(pk=instance.pk).update(is_active=False)

@@ -1,6 +1,10 @@
+from django.db import transaction
+from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from catalog.models import Product, Contact, Blog
+
+from catalog.forms import VersionForm, ProductForm
+from catalog.models import Product, Contact, Blog, Version
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
 from pytils.translit import slugify
 from django.core.mail import send_mail
@@ -44,6 +48,9 @@ class ProductListView(ListView):
     model = Product
     paginate_by = 6
 
+    def get_queryset(self):
+        return Product.objects.order_by('pk')
+
 
 class ProductCreateView(CreateView):
     """Контроллер страницы добавления товара от пользователя"""
@@ -55,6 +62,37 @@ class ProductCreateView(CreateView):
 class ProductDetailView(DetailView):
     """Контроллер страницы товара по id"""
     model = Product
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:products')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['formset'] = self._get_formset()
+        return context
+
+    def _get_formset(self):
+        FormSet = inlineformset_factory(self.model, Version, form=VersionForm, extra=1)
+        if self.request.method == 'POST':
+            return FormSet(self.request.POST, instance=self.object)
+        return FormSet(instance=self.object)
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+
+        with transaction.atomic():
+            self.object = form.save()
+            if formset.is_valid():
+                formset.instance = self.object
+                formset.save()
+            else:
+                return self.form_invalid(form)
+
+        return super().form_valid(form)
 
 
 class ArticleListView(ListView):
