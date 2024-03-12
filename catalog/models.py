@@ -140,5 +140,6 @@ class Version(models.Model):
 
 @receiver(post_save, sender=Version)
 def set_active_version(sender, instance, **kwargs):
-    if 'is_active' in kwargs.get('update_fields', []) and instance.is_active:
+    update_fields = kwargs.get('update_fields', [])
+    if update_fields is not None and 'is_active' in update_fields and instance.is_active:
         Version.objects.filter(product=instance.product).exclude(pk=instance.pk).update(is_active=False)
