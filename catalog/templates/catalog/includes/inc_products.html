@@ -5,7 +5,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for product in object_list %}
             <div class="col-4">
-                <br></br>
+                <br />
                 <div class="card border-primary">
                     <div class="card-header text-center">
                         <h4 class="my-0 font-weight-normal mb-2">{{product.name}}</h4>
@@ -27,6 +27,8 @@
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">Купить</button>
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">В избранное</button>
                                     <a type="button" class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+                                    <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+
                                 </div>
                             </div>
                         </div>

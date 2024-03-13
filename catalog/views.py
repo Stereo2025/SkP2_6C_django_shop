@@ -1,5 +1,6 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 
@@ -93,6 +94,12 @@ class ProductUpdateView(UpdateView):
                 return self.form_invalid(form)
 
         return super().form_valid(form)
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:home_page')
 
 
 class ArticleListView(ListView):
