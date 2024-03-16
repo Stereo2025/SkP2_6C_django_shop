@@ -1,5 +1,5 @@
 from django.contrib import admin
-from catalog.models import Product, Category, Contact, Blog, Version
+from catalog.models import Product, Category, Contact, Version #, Blog,
 
 
 # Register your models here.
@@ -18,12 +18,6 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'email')
-
-
-@admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'content', 'is_published', 'date_added',
-                    'views_count', 'image')
 
 
 @admin.register(Version)
