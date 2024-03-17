@@ -164,3 +164,4 @@ cython_debug/
 17_1
 sett.txt
 catalog/staticfiles
+fixtures
