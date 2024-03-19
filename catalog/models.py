@@ -4,6 +4,8 @@ from django.db import connection
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from config import settings
+
 
 # Create your models here.
 class Product(models.Model):
@@ -14,6 +16,8 @@ class Product(models.Model):
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateField(auto_now=True, verbose_name='Дата изменения')
     price = models.IntegerField(verbose_name='Цена', default=0)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True,
+                               verbose_name='Кем создан')
 
     def __str__(self):
         return f'{self.name}'

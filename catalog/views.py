@@ -1,8 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
 from catalog.forms import VersionForm, ProductForm
 from catalog.models import Product, Contact, Version
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
@@ -11,7 +11,6 @@ from django.views.generic import ListView, CreateView, DetailView, TemplateView,
 class HomeListView(ListView):
     """Контроллер домашней страницы"""
     model = Product
-
     template_name = 'catalog/home_page.html'
 
     def get_queryset(self, *args, **kwargs):
@@ -48,11 +47,18 @@ class ProductListView(ListView):
         return Product.objects.order_by('pk')
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     """Контроллер страницы добавления товара от пользователя"""
     model = Product
-    fields = ('name', 'description', 'image', 'category', 'price')
+    form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
+
+    def form_valid(self, form):
+        """Добавление автора к товару"""
+        self.object = form.save()
+        self.object.author = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 class ProductDetailView(DetailView):
@@ -60,7 +66,7 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:products')
@@ -91,7 +97,11 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
-    template_name = 'catalog/product_confirm_delete.html'
-    success_url = reverse_lazy('catalog:home_page')
+    success_url = reverse_lazy('catalog:products')
+
+    def test_func(self):
+        if self.request.user == self.get_object().author or self.request.user.is_superuser is True:
+            return True
+        return self.handle_no_permission()
