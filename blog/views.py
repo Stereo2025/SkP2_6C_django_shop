@@ -4,6 +4,7 @@ from pytils.translit import slugify
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class ArticleListView(ListView):
@@ -46,7 +47,7 @@ class ArticleCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = ('title', 'content', 'image', 'is_published',)
 
@@ -60,6 +61,6 @@ class ArticleUpdateView(UpdateView):
         return reverse('blog:view', args=[self.object.slug])
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:articles')

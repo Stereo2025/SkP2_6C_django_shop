@@ -26,9 +26,11 @@
                                     <h4 class="card-title pricing-card-title">{{product.price}} р.</h4>
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">Купить</button>
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">В избранное</button>
-                                    {% if request.user.is_superuser or request.user == product.author %}
-                                        <a type="button" class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
-                                        <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+                                    {% if product.author == user or perms.catalog.set_is_published and perms.catalog.set_category and perms.catalog.set_description %}
+                                    <a type="button" class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+                                    {% endif %}
+                                    {% if product.author == user or user.is_superuser is True %}
+                                    <a type="button" class="btn btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
                                     {% endif %}
                                 </div>
                             </div>

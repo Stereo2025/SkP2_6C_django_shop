@@ -3,7 +3,7 @@ from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from catalog.forms import VersionForm, ProductForm
+from catalog.forms import VersionForm, ProductForm, ModeratorProductForm
 from catalog.models import Product, Contact, Version
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
 
@@ -66,35 +66,51 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    form_class = ProductForm
-    success_url = reverse_lazy('catalog:products')
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:products')
+
+    def test_func(self):
+        custom_perms = (
+            'catalog.set_is_published',
+            'catalog.set_category',
+            'catalog.set_description'
+        )
+        user = self.request.user
+        if user == self.get_object().author or user.is_superuser:
+            return True
+        if user.groups.filter(name='moderators').exists() and user.has_perms(custom_perms):
+            return True
+        return self.handle_no_permission()
+
+    def is_user_moderator(self):
+        """Проверяет, входит ли пользователь в группу 'moderators'."""
+        return self.request.user.groups.filter(name='moderators').exists()
+
+    def get_form_class(self):
+        if self.is_user_moderator():
+            return ModeratorProductForm
+        return ProductForm
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['formset'] = self._get_formset()
-        return context
-
-    def _get_formset(self):
+        context_data = super().get_context_data(**kwargs)
         FormSet = inlineformset_factory(self.model, Version, form=VersionForm, extra=1)
-        if self.request.method == 'POST':
-            return FormSet(self.request.POST, instance=self.object)
-        return FormSet(instance=self.object)
+        context_data['formset'] = FormSet(self.request.POST or None, instance=self.object)
+        return context_data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        formset = context['formset']
-
-        with transaction.atomic():
-            self.object = form.save()
-            if formset.is_valid():
+        formset = context.get('formset')
+        if formset.is_valid():
+            with transaction.atomic():
+                self.object = form.save()
                 formset.instance = self.object
                 formset.save()
-            else:
-                return self.form_invalid(form)
-
-        return super().form_valid(form)
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

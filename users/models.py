@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 import string
 import random
 
@@ -54,7 +54,7 @@ class UserManager(BaseUserManager):
         return ''.join(password)
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -74,11 +74,11 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
+    # def has_perm(self, perm, obj=None):
+    #     return True
+    #
+    # def has_module_perms(self, app_label):
+    #     return True
 
     @property
     def is_staff(self):

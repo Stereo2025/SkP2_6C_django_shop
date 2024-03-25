@@ -37,6 +37,7 @@
                 <div class="card-footer"></div>
             </div>
         </div>
+        {% if product.author == user or user.is_superuser is True %}
         <div class="col-6">
             <div class="card">
                 {% if object %}
@@ -55,6 +56,7 @@
                 {% endif %}
             </div>
         </div>
+        {% endif %}
     </form>
 </div>
 
