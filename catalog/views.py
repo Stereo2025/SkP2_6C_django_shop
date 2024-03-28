@@ -83,7 +83,7 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, Per
             return True
         if user.groups.filter(name='moderators').exists() and user.has_perms(custom_perms):
             return True
-        return self.handle_no_permission()
+        return False
 
     def is_user_moderator(self):
         """Проверяет, входит ли пользователь в группу 'moderators'."""
