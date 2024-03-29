@@ -26,11 +26,6 @@
                                     <h4 class="card-title pricing-card-title">{{product.price}} р.</h4>
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">Купить</button>
                                     <button type="button" class="btn mb-3 btn-sm btn-primary">В избранное</button>
-                                    {% if request.user|moderators:"moderators" %}
-                                    <p>Пользователь принадлежит к группе.</p>
-                                    {% else %}
-                                    <p>Пользователь не принадлежит к группе.</p>
-                                    {% endif %}
                                     {% if product.author == user or user.is_superuser or request.user|moderators:"moderators" %}
                                     <a type="button" class="btn btn-outline-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
                                     {% endif %}

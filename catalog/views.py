@@ -76,7 +76,8 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, Per
         custom_perms = (
             'catalog.set_is_published',
             'catalog.set_category',
-            'catalog.set_description'
+            'catalog.set_description',
+            'catalog.change_product'
         )
         user = self.request.user
         if user == self.get_object().author or user.is_superuser:
