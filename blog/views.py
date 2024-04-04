@@ -50,6 +50,7 @@ class ArticleCreateView(CreateView):
 class ArticleUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = ('title', 'content', 'image', 'is_published',)
+    permission_required = 'blog.change_article'
 
     def form_valid(self, form):
         new_article = form.save()

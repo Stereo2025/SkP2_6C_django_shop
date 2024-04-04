@@ -1,135 +1,5 @@
 [
   {
-    "model": "admin.logentry",
-    "pk": 1,
-    "fields": {
-      "action_time": "2024-02-17T07:51:51.520Z",
-      "user": 1,
-      "content_type": 7,
-      "object_id": "1",
-      "object_repr": "Посуда",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 2,
-    "fields": {
-      "action_time": "2024-02-17T07:52:18.718Z",
-      "user": 1,
-      "content_type": 8,
-      "object_id": "1",
-      "object_repr": "Тарелка",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 3,
-    "fields": {
-      "action_time": "2024-02-17T07:52:31.044Z",
-      "user": 1,
-      "content_type": 7,
-      "object_id": "2",
-      "object_repr": "Лыжи",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 4,
-    "fields": {
-      "action_time": "2024-02-17T07:52:43.390Z",
-      "user": 1,
-      "content_type": 8,
-      "object_id": "2",
-      "object_repr": "fisher",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 5,
-    "fields": {
-      "action_time": "2024-02-18T04:39:17.891Z",
-      "user": 1,
-      "content_type": 7,
-      "object_id": "5",
-      "object_repr": "Posuda",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 6,
-    "fields": {
-      "action_time": "2024-02-18T04:39:35.241Z",
-      "user": 1,
-      "content_type": 7,
-      "object_id": "6",
-      "object_repr": "Electrika",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 7,
-    "fields": {
-      "action_time": "2024-02-18T04:39:51.924Z",
-      "user": 1,
-      "content_type": 7,
-      "object_id": "7",
-      "object_repr": "Mebel",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 8,
-    "fields": {
-      "action_time": "2024-02-18T04:40:48.133Z",
-      "user": 1,
-      "content_type": 8,
-      "object_id": "8",
-      "object_repr": "UZO",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 9,
-    "fields": {
-      "action_time": "2024-02-18T04:41:13.017Z",
-      "user": 1,
-      "content_type": 8,
-      "object_id": "9",
-      "object_repr": "Shkaf",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 10,
-    "fields": {
-      "action_time": "2024-02-18T04:41:41.488Z",
-      "user": 1,
-      "content_type": 8,
-      "object_id": "10",
-      "object_repr": "Forma",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -241,198 +111,315 @@
     "model": "auth.permission",
     "pk": 13,
     "fields": {
-      "name": "Can add user",
+      "name": "Can add content type",
       "content_type": 4,
-      "codename": "add_user"
+      "codename": "add_contenttype"
     }
   },
   {
     "model": "auth.permission",
     "pk": 14,
     "fields": {
-      "name": "Can change user",
+      "name": "Can change content type",
       "content_type": 4,
-      "codename": "change_user"
+      "codename": "change_contenttype"
     }
   },
   {
     "model": "auth.permission",
     "pk": 15,
     "fields": {
-      "name": "Can delete user",
+      "name": "Can delete content type",
       "content_type": 4,
-      "codename": "delete_user"
+      "codename": "delete_contenttype"
     }
   },
   {
     "model": "auth.permission",
     "pk": 16,
     "fields": {
-      "name": "Can view user",
+      "name": "Can view content type",
       "content_type": 4,
-      "codename": "view_user"
+      "codename": "view_contenttype"
     }
   },
   {
     "model": "auth.permission",
     "pk": 17,
     "fields": {
-      "name": "Can add content type",
+      "name": "Can add session",
       "content_type": 5,
-      "codename": "add_contenttype"
+      "codename": "add_session"
     }
   },
   {
     "model": "auth.permission",
     "pk": 18,
     "fields": {
-      "name": "Can change content type",
+      "name": "Can change session",
       "content_type": 5,
-      "codename": "change_contenttype"
+      "codename": "change_session"
     }
   },
   {
     "model": "auth.permission",
     "pk": 19,
     "fields": {
-      "name": "Can delete content type",
+      "name": "Can delete session",
       "content_type": 5,
-      "codename": "delete_contenttype"
+      "codename": "delete_session"
     }
   },
   {
     "model": "auth.permission",
     "pk": 20,
     "fields": {
-      "name": "Can view content type",
+      "name": "Can view session",
       "content_type": 5,
-      "codename": "view_contenttype"
+      "codename": "view_session"
     }
   },
   {
     "model": "auth.permission",
     "pk": 21,
     "fields": {
-      "name": "Can add session",
+      "name": "Can add Категория",
       "content_type": 6,
-      "codename": "add_session"
+      "codename": "add_category"
     }
   },
   {
     "model": "auth.permission",
     "pk": 22,
     "fields": {
-      "name": "Can change session",
+      "name": "Can change Категория",
       "content_type": 6,
-      "codename": "change_session"
+      "codename": "change_category"
     }
   },
   {
     "model": "auth.permission",
     "pk": 23,
     "fields": {
-      "name": "Can delete session",
+      "name": "Can delete Категория",
       "content_type": 6,
-      "codename": "delete_session"
+      "codename": "delete_category"
     }
   },
   {
     "model": "auth.permission",
     "pk": 24,
     "fields": {
-      "name": "Can view session",
+      "name": "Can view Категория",
       "content_type": 6,
-      "codename": "view_session"
+      "codename": "view_category"
     }
   },
   {
     "model": "auth.permission",
     "pk": 25,
     "fields": {
-      "name": "Can add Категория",
+      "name": "Can add Товар",
       "content_type": 7,
-      "codename": "add_category"
+      "codename": "add_product"
     }
   },
   {
     "model": "auth.permission",
     "pk": 26,
     "fields": {
-      "name": "Can change Категория",
+      "name": "Can change Товар",
       "content_type": 7,
-      "codename": "change_category"
+      "codename": "change_product"
     }
   },
   {
     "model": "auth.permission",
     "pk": 27,
     "fields": {
-      "name": "Can delete Категория",
+      "name": "Can delete Товар",
       "content_type": 7,
-      "codename": "delete_category"
+      "codename": "delete_product"
     }
   },
   {
     "model": "auth.permission",
     "pk": 28,
     "fields": {
-      "name": "Can view Категория",
+      "name": "Can view Товар",
       "content_type": 7,
-      "codename": "view_category"
+      "codename": "view_product"
     }
   },
   {
     "model": "auth.permission",
     "pk": 29,
     "fields": {
-      "name": "Can add Товар",
-      "content_type": 8,
-      "codename": "add_product"
+      "name": "Can publish product",
+      "content_type": 7,
+      "codename": "set_is_published"
     }
   },
   {
     "model": "auth.permission",
     "pk": 30,
     "fields": {
-      "name": "Can change Товар",
-      "content_type": 8,
-      "codename": "change_product"
+      "name": "Can change category",
+      "content_type": 7,
+      "codename": "set_category"
     }
   },
   {
     "model": "auth.permission",
     "pk": 31,
     "fields": {
-      "name": "Can delete Товар",
-      "content_type": 8,
-      "codename": "delete_product"
+      "name": "Can change description",
+      "content_type": 7,
+      "codename": "set_description"
     }
   },
   {
     "model": "auth.permission",
     "pk": 32,
     "fields": {
-      "name": "Can view Товар",
+      "name": "Can add Контакт",
       "content_type": 8,
-      "codename": "view_product"
+      "codename": "add_contact"
     }
   },
   {
-    "model": "auth.user",
-    "pk": 1,
+    "model": "auth.permission",
+    "pk": 33,
     "fields": {
-      "password": "pbkdf2_sha256$720000$TYpPXjMobwpIw5aLU16jFn$/AibIxuWHZN7Tl8LMzfwujuxZDOaTPdFlCM79wVAc8o=",
-      "last_login": "2024-02-17T07:51:24.721Z",
-      "is_superuser": true,
-      "username": "ant",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2024-02-17T07:51:01.293Z",
-      "groups": [],
-      "user_permissions": []
+      "name": "Can change Контакт",
+      "content_type": 8,
+      "codename": "change_contact"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can delete Контакт",
+      "content_type": 8,
+      "codename": "delete_contact"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can view Контакт",
+      "content_type": 8,
+      "codename": "view_contact"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can add Версия",
+      "content_type": 9,
+      "codename": "add_version"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can change Версия",
+      "content_type": 9,
+      "codename": "change_version"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can delete Версия",
+      "content_type": 9,
+      "codename": "delete_version"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can view Версия",
+      "content_type": 9,
+      "codename": "view_version"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can add Публикация",
+      "content_type": 10,
+      "codename": "add_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can change Публикация",
+      "content_type": 10,
+      "codename": "change_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can delete Публикация",
+      "content_type": 10,
+      "codename": "delete_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can view Публикация",
+      "content_type": 10,
+      "codename": "view_blog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 11,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 11,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 11,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 11,
+      "codename": "view_user"
     }
   },
   {
@@ -463,21 +450,13 @@
     "model": "contenttypes.contenttype",
     "pk": 4,
     "fields": {
-      "app_label": "auth",
-      "model": "user"
-    }
-  },
-  {
-    "model": "contenttypes.contenttype",
-    "pk": 5,
-    "fields": {
       "app_label": "contenttypes",
       "model": "contenttype"
     }
   },
   {
     "model": "contenttypes.contenttype",
-    "pk": 6,
+    "pk": 5,
     "fields": {
       "app_label": "sessions",
       "model": "session"
@@ -485,7 +464,7 @@
   },
   {
     "model": "contenttypes.contenttype",
-    "pk": 7,
+    "pk": 6,
     "fields": {
       "app_label": "catalog",
       "model": "category"
@@ -493,128 +472,42 @@
   },
   {
     "model": "contenttypes.contenttype",
-    "pk": 8,
+    "pk": 7,
     "fields": {
       "app_label": "catalog",
       "model": "product"
     }
   },
   {
-    "model": "sessions.session",
-    "pk": "c5dvpjpz9nnkfirl55gwrt1238le4g24",
+    "model": "contenttypes.contenttype",
+    "pk": 8,
     "fields": {
-      "session_data": ".eJxVjMsOwiAQRf-FtSF0eLt07zeQgQGpGkhKuzL-uzbpQrf3nHNfLOC21rCNvISZ2JlN7PS7RUyP3HZAd2y3zlNv6zJHviv8oINfO-Xn5XD_DiqO-q01-kRKgSxyIocRsRjrvDEFTcLiQEAiCx5dQUGkk82SwINRImohBHt_AP0COCg:1rbFTo:ns-0IfjDEFY8QBIIgAFIrKRHDIuKyFOzURvOwRYSx3E",
-      "expire_date": "2024-03-02T07:51:24.729Z"
+      "app_label": "catalog",
+      "model": "contact"
     }
   },
   {
-    "model": "catalog.product",
-    "pk": 1,
+    "model": "contenttypes.contenttype",
+    "pk": 9,
     "fields": {
-      "name": "Tarelka",
-      "description": "white",
-      "image": "",
-      "category": 1,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 5
+      "app_label": "catalog",
+      "model": "version"
     }
   },
   {
-    "model": "catalog.product",
-    "pk": 2,
+    "model": "contenttypes.contenttype",
+    "pk": 10,
     "fields": {
-      "name": "fisher",
-      "description": "green",
-      "image": "",
-      "category": 2,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 10
+      "app_label": "blog",
+      "model": "blog"
     }
   },
   {
-    "model": "catalog.product",
-    "pk": 4,
+    "model": "contenttypes.contenttype",
+    "pk": 11,
     "fields": {
-      "name": "Toster",
-      "description": "power",
-      "image": "",
-      "category": 3,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 12
-    }
-  },
-  {
-    "model": "catalog.product",
-    "pk": 5,
-    "fields": {
-      "name": "Shkaf",
-      "description": "Ugolok",
-      "image": "",
-      "category": 4,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 10
-    }
-  },
-  {
-    "model": "catalog.product",
-    "pk": 6,
-    "fields": {
-      "name": "Stol",
-      "description": "theRing",
-      "image": "",
-      "category": 4,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 15
-    }
-  },
-  {
-    "model": "catalog.product",
-    "pk": 7,
-    "fields": {
-      "name": "Phone",
-      "description": "Samsung",
-      "image": "",
-      "category": 3,
-      "created_at": "2024-02-18",
-      "updated_at": "2024-02-18",
-      "price": 20
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 1,
-    "fields": {
-      "name": "Posuda",
-      "description": "norm"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 2,
-    "fields": {
-      "name": "Sky",
-      "description": "fast"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 3,
-    "fields": {
-      "name": "Electronika",
-      "description": "dlyaDoma"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 4,
-    "fields": {
-      "name": "Mebel",
-      "description": "DlyaKuhni"
+      "app_label": "users",
+      "model": "user"
     }
   }
 ]
