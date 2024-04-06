@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from catalog.forms import VersionForm, ProductForm, ModeratorProductForm
 from catalog.models import Product, Contact, Version
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
+from catalog.cache import get_categories_from_cache
 
 
 class HomeListView(ListView):
@@ -64,6 +65,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 class ProductDetailView(DetailView):
     """Контроллер страницы товара по id"""
     model = Product
+    template_name = 'catalog/product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = get_categories_from_cache()
+        return context
 
 
 class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView, PermissionRequiredMixin):

@@ -6,23 +6,29 @@
     <h2 class="display-4">{{object.name}}</h2>
 </div>
 <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{% mediapath product.image %}" class="img-fluid rounded-start" alt="">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{object.name}}</h5>
-        <p class="card-text">{{object.description}}</p>
-        <div class="card-footer">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div class="col">
-                 <h4 class="card-title pricing-card-title">{{object.price}} р.</h4>
-              </div>
-          </div>
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{% mediapath product.image %}" class="img-fluid rounded-start" alt="">
         </div>
-      </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{object.name}}</h5>
+                <p class="card-text">{{object.description}}</p>
+                <h5 class="mt-4">Категория:</h5>
+                <div>
+                    <ul>
+                        <li>{{ object.category.name }}</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <div class="col">
+                            <h4 class="card-title pricing-card-title">{{object.price}} р.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
